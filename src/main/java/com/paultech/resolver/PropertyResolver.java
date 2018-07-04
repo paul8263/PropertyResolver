@@ -29,14 +29,19 @@ public class PropertyResolver {
             for (Field declaredField : declaredFields) {
 
                 String fieldName = declaredField.getName();
+
+                boolean isAssignedFieldName = false;
+                if (declaredField.isAnnotationPresent(PropertyName.class)) {
+                    PropertyName propertyNameAnnotation = declaredField.getDeclaredAnnotation(PropertyName.class);
+                    fieldName = propertyNameAnnotation.value();
+                    isAssignedFieldName = true;
+                }
+
                 Set<String> propertyNames = properties.stringPropertyNames();
                 for (String propertyName : propertyNames) {
                     String convertedPropertyName = propertyName;
 
-                    if (declaredField.isAnnotationPresent(PropertyName.class)) {
-                        PropertyName propertyNameAnnotation = declaredField.getDeclaredAnnotation(PropertyName.class);
-                        fieldName = propertyNameAnnotation.value();
-                    } else {
+                    if (!isAssignedFieldName) {
                         convertedPropertyName = convertPropertyName(propertyName, fieldNamingPolicy);
                     }
 
@@ -45,6 +50,7 @@ public class PropertyResolver {
                             declaredField.setAccessible(true);
                         }
                         declaredField.set(propertySourceBean, properties.getProperty(propertyName));
+                        break;
                     }
                 }
             }
