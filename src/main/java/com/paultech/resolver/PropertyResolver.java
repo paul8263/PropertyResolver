@@ -18,7 +18,7 @@ public class PropertyResolver {
     public <T> T getProperty(Class<T> propertySourceClass) throws Exception {
         if (propertySourceClass.isAnnotationPresent(PropertySource.class)) {
             PropertySource propertySource = propertySourceClass.getDeclaredAnnotation(PropertySource.class);
-            String propertyPath = propertySource.value();
+            String propertyPath = new File(propertySource.value()).getAbsolutePath();
             Properties properties = readPropertyFromPath(propertyPath);
 
             FieldNamingPolicy fieldNamingPolicy = propertySource.fieldNamingPolicy();
