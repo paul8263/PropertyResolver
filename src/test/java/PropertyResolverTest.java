@@ -6,7 +6,9 @@ import org.junit.Test;
 public class PropertyResolverTest {
     @Test
     public void test() throws Exception {
+        long start = System.currentTimeMillis();
         Prop property = new PropertyResolver().getProperty(Prop.class);
+        System.out.println(System.currentTimeMillis() - start);
         Assert.assertEquals("http://example.com", property.url);
         Assert.assertEquals("root", property.username);
         Assert.assertEquals("123456", property.jdbcPassword);
