@@ -44,6 +44,7 @@ public class PropertyResolver {
         FieldNamingPolicy fieldNamingPolicy = propertySource.fieldNamingPolicy();
 
         Field[] declaredFields = propertySourceClass.getDeclaredFields();
+        Set<String> propertyNames = properties.stringPropertyNames();
         for (Field declaredField : declaredFields) {
 
             String fieldName = declaredField.getName();
@@ -55,7 +56,7 @@ public class PropertyResolver {
                 isAssignedFieldName = true;
             }
 
-            Set<String> propertyNames = properties.stringPropertyNames();
+
             for (String propertyName : propertyNames) {
                 String convertedPropertyName = propertyName;
 
