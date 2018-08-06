@@ -33,10 +33,16 @@ class Demo {
 
 1. Convert dot/dash separated property name to camel case.
 
+**Dot**
+
+Property file:
+
 ```properties
 my.username=paul
 my.password=p@ssw0rd
 ``` 
+
+Java code:
 
 ```java
 @PropertySource(fieldNamingPolicy = FieldNamingPolicy.DOT_SEPARATED_TO_CAMEL_CASE, value = "path/to/propertyFile.properties")
@@ -46,10 +52,16 @@ class PropertyBean {
 }
 ```
 
+**Dash**
+
+Property file:
+
 ```properties
 my-username=paul
 my-password=p@ssw0rd
 ``` 
+
+Java code:
 
 ```java
 @PropertySource(fieldNamingPolicy = FieldNamingPolicy.DASH_SEPARATED_TO_CAMEL_CASE, value = "path/to/propertyFile.properties")
@@ -63,10 +75,14 @@ If we use `FieldNamingPolicy.EXACTLY_MATCH`, there will be no naming conversion 
 
 2. Define custom property name.
 
+Property file:
+
 ```properties
 jdbc.username=paul
 jdbc.password=password
 ```
+
+Java code:
 
 ```java
 @PropertySource(fieldNamingPolicy = FieldNamingPolicy.DOT_SEPARATED_TO_CAMEL_CASE, value = "path/to/propertyFile.properties")
